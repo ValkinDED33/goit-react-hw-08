@@ -2,40 +2,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f7f7f7;
-  width: 100%;
+  gap: 20px;
   max-width: 400px;
   margin: 0 auto;
 }
 
-.fieldWrapper {
-  margin-bottom: 15px;
+.field {
   width: 100%;
 }
 
 .label {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
+  display: block;
   margin-bottom: 8px;
-  color: #213547;
-}
-
-.icon {
-  margin-right: 8px;
+  font-weight: 600;
   color: #213547;
 }
 
 .input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 16px;
-  color: #333;
 }
 
 .input:focus {
@@ -50,23 +38,21 @@
 }
 
 .button {
-  width: 100%;
-  padding: 12px;
+  padding: 12px 20px;
   background-color: #04f36c;
-  color: white;
   border: none;
   border-radius: 8px;
+  color: white;
   font-size: 16px;
   font-weight: bold;
-  text-transform: uppercase;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .button:hover {
-  background-color: #03d15c;
+  background-color: #05e96b;
 }
 
 .button:active {
-  background-color: #029a4d;
+  background-color: #03d25b;
 }

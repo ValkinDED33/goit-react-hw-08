@@ -1,23 +1,30 @@
-.input {
-  width: 375px;
-  height: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  transition:
-    border-color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
-  margin-bottom: 20px;
-  margin-top: 20px;
+.label {
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  display: block;
+  color: #333;
 }
 
-.input:hover {
-  border-color: #888;
+.input {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  margin-left: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #04f36c;
   outline: none;
+}
+
+.searchBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
 }

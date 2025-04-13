@@ -1,31 +1,72 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../../redux/contactsOps";
-import { selectLoading, selectError } from "../../redux/contactsSlice";
-import ContactForm from "../ContactForm/ContactForm";
-import ContactList from "../ContactList/ContactList";
-import SearchBox from "../SearchBox/SearchBox";
-import css from "./App.module.css";
+import { Route, Routes } from "react-router-dom";
 
-const App = () => {
+import { refreshUser } from "../../redux/auth/operations";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
+
+import Layout from "../layout/Layout";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
+
+import "./App.css";
+
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage.jsx"));
+const RegisterPage = lazy(
+  () => import("../../pages/RegisterPage/RegisterPage.jsx")
+);
+const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage.jsx"));
+const ContactsPage = lazy(
+  () => import("../../pages/ContactsPage/ContactsPage.jsx")
+);
+const NotFoundPage = lazy(
+  () => import("../../pages/NotFoundPage/NotFoundPage.jsx")
+);
+
+export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <div className={css.container}>
-      <h1>Книга контактів</h1>
-      <ContactForm />
-      <SearchBox />
-      {isLoading && <p>Завантаження...</p>}
-      {error && <p>Помилка: {error}</p>}
-      <ContactList />
-    </div>
-  );
-};
+  if (isRefreshing) {
+    return <strong>Getting user data, please wait...</strong>;
+  }
 
-export default App;
+  return (
+    <Layout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                component={<RegisterPage />}
+                redirectTo="/contacts"
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                component={<LoginPage />}
+                redirectTo="/contacts"
+              />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </Layout>
+  );
+}

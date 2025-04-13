@@ -1,0 +1,23 @@
+.text {
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.error {
+  background-color: #f44336;
+  border: 2px solid #d32f2f;
+}
+
+.warning {
+  background-color: #ff9800;
+  border: 2px solid #f57c00;
+}
+
+.info {
+  background-color: #2196f3;
+  border: 2px solid #1976d2;
+}
